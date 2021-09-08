@@ -1,8 +1,4 @@
-const PlaceDetails = () => {
-    return (
-        <div>
-            PlaceDetails
-        </div>
-    )
-}
+const PlaceDetails = ({ place }) => {
+  return <div>{place.name}</div>;
+};
 export default PlaceDetails;
