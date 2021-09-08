@@ -11,11 +11,10 @@ import { useState } from "react";
 import useStyles from "./styles";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-const List = () => {
+const List = ({ places }) => {
   const classes = useStyles();
   const [type, settype] = useState("restaurants");
   const [rating, setRating] = useState("");
-  const places = [{ name: "Cool place" }, { name: "best" }];
   return (
     <div className={classes.container}>
       <Typography variant="h4">
@@ -40,7 +39,7 @@ const List = () => {
       </FormControl>
       <Grid spacing={3} className={classes.list}>
         {places?.map((place, i) => (
-          <Grid item key={i} xs={12}>
+          <Grid item key={i} xs={12} style={{ marginBottom: "1.4rem" }}>
             <PlaceDetails {...{ place }} />
           </Grid>
         ))}
