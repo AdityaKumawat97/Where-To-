@@ -7,14 +7,21 @@ import {
   FormControl,
   Select,
 } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect, createRef } from "react";
 import useStyles from "./styles";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-const List = ({ places }) => {
+const List = ({ places, childClicked }) => {
   const classes = useStyles();
   const [type, settype] = useState("restaurants");
   const [rating, setRating] = useState("");
+  const [references, setReferences] = useState([]);
+  useEffect(() => {
+    const refs = Array(places?.length)
+      .fill()
+      .map((_, i) => references[i] || createRef());
+    setReferences(refs);
+  }, [places]);
   return (
     <div className={classes.container}>
       <Typography variant="h4">
@@ -39,8 +46,18 @@ const List = ({ places }) => {
       </FormControl>
       <Grid spacing={3} className={classes.list}>
         {places?.map((place, i) => (
-          <Grid item key={i} xs={12} style={{ marginBottom: "1.4rem" }}>
-            <PlaceDetails {...{ place }} />
+          <Grid
+            ref={references[i]}
+            item
+            key={i}
+            xs={12}
+            style={{ marginBottom: "1.4rem" }}
+          >
+            <PlaceDetails
+              {...{ place }}
+              selected={Number(childClicked) === i}
+              refProp={references[i]}
+            />
           </Grid>
         ))}
       </Grid>
