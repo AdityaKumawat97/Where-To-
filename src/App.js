@@ -8,7 +8,7 @@ import { getPlacesData } from "./api";
 function App() {
   const [places, setplaces] = useState([]);
   const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState(null);
+  const [bounds, setBounds] = useState({});
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -32,7 +32,7 @@ function App() {
           <List {...{ places }} />
         </Grid>
         <Grid item xs={12} md={8}>
-          <Map {...{ setBounds, setCoordinates, coordinates }} />
+          <Map {...{ setBounds, setCoordinates, coordinates, places }} />
         </Grid>
       </Grid>
     </>

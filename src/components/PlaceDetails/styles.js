@@ -15,4 +15,7 @@ export default makeStyles(() => ({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  address: {
+    textAlign: "end",
+  },
 }));

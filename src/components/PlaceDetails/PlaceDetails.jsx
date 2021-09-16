@@ -9,7 +9,7 @@ import {
   Chip,
 } from "@material-ui/core";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import Phone from "@material-ui/icons/Phone";
+import PhoneIcon from "@material-ui/icons/Phone";
 import Rating from "@material-ui/lab/Rating";
 import useStyles from "./styles";
 
@@ -50,6 +50,50 @@ const PlaceDetails = ({ place }) => {
             </Typography>
           </Box>
         ))}
+        {place?.cuisine?.map(({ name }) => (
+          <Chip key={name} size="small" label={name} className={classes.chip} />
+        ))}
+        {place?.address && (
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            color="textSecondary"
+            className={classes.subtitle}
+          >
+            <div className={classes.spacing}>
+              <div>
+                <LocationOnIcon />
+              </div>
+              <div className={classes.address}>{place.address}</div>
+            </div>
+          </Typography>
+        )}
+        {place?.phone && (
+          <Typography variant="subtitle2" gutterBottom color="textSecondary">
+            <div className={classes.spacing}>
+              <div>
+                <PhoneIcon />
+              </div>
+              <div>{place.phone}</div>
+            </div>
+          </Typography>
+        )}
+        <CardActions className={classes.spacing}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => window.open(place.web_url, "_blank")}
+          >
+            Trip Advisor
+          </Button>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => window.open(place.website, "_blank")}
+          >
+            Website
+          </Button>
+        </CardActions>
       </CardContent>
     </Card>
   );
