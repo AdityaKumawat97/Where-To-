@@ -22,13 +22,19 @@ function App() {
     );
   }, []);
   useEffect(() => {
-    setIsLoading(true);
-    getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
-      setplaces(data);
-      setfilteredPlaces([]);
-      setIsLoading(false);
-    });
-  }, [coordinates, bounds, type]);
+    if (bounds.sw && bounds.ne) {
+      setIsLoading(true);
+      getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
+        setplaces(
+          data?.filter(
+            (place) => place?.name?.length > 0 && place?.num_reviews > 0
+          )
+        );
+        setfilteredPlaces([]);
+        setIsLoading(false);
+      });
+    }
+  }, [bounds, type]);
   useEffect(() => {
     const filteredPlaces = places.filter((place) => place.rating > rating);
     setfilteredPlaces(filteredPlaces);
@@ -36,7 +42,7 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Header />
+      <Header {...{ setCoordinates }} />
       <Grid container style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
           <List
