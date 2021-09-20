@@ -11,10 +11,16 @@ import { useState, useEffect, createRef } from "react";
 import useStyles from "./styles";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-const List = ({ places, childClicked, isLoading }) => {
+const List = ({
+  places,
+  childClicked,
+  isLoading,
+  type,
+  settype,
+  rating,
+  setRating,
+}) => {
   const classes = useStyles();
-  const [type, settype] = useState("restaurants");
-  const [rating, setRating] = useState("");
   const [references, setReferences] = useState([]);
   useEffect(() => {
     const refs = Array(places?.length)
