@@ -21,4 +21,9 @@ export default makeStyles(() => ({
   pointer: {
     cursor: "pointer",
   },
+  weather: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
 }));

@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
 import { CssBaseline, Grid } from "@material-ui/core";
-import { getPlacesData } from "./api";
+import { getPlacesData, getWeatherData } from "./api";
 
 function App() {
   const [places, setplaces] = useState([]);
@@ -12,6 +12,7 @@ function App() {
   const [childClicked, setChildClicked] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [type, settype] = useState("restaurants");
+  const [weatherData, setWeatherData] = useState(null);
   const [filteredPlaces, setfilteredPlaces] = useState([]);
   const [rating, setRating] = useState("");
   useEffect(() => {
@@ -24,6 +25,9 @@ function App() {
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       setIsLoading(true);
+      getWeatherData(coordinates.lat, coordinates.lng).then((data) =>
+        setWeatherData(data)
+      );
       getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
         setplaces(
           data?.filter(
@@ -61,6 +65,7 @@ function App() {
           <Map
             {...{
               setBounds,
+              weatherData,
               setCoordinates,
               coordinates,
               setChildClicked,
